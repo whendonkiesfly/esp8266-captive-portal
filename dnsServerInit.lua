@@ -9,7 +9,6 @@ s:on("receive", function(con, req, port, ip)
 
     if "\0\1" == req:sub(ix + 1, ix + 2) then
         local id, nr, query, check, class = struct.unpack("c2xxc2xxxxxxc"..(ix-12).."i2c2", req)
-        print(query)
         if id then
             con:send(port, ip, id .. "\129\128" .. nr .. "\0\1\0\0\0\0" .. query .. "\0\1" .. 
                                 class .. "\192\12\0\1" .. class .. "\0\0\0\218\0\4" .. dns_ip)
